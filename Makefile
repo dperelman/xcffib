@@ -37,6 +37,7 @@ gen: dist-newstyle
 clean:
 	-$(CABAL) new-clean
 	-rm -rf xcffib
+	-rm -rf doc
 	-rm -rf module/*pyc module/__pycache__
 	-rm -rf test/*pyc test/__pycache__
 	-rm -rf build *egg* *deb .pybuild
@@ -67,6 +68,10 @@ htests:
 
 check: xcffib lint htests
 	nosetests -d -v
+
+doc: xcffib
+	sphinx-apidoc -o doc -e -F xcffib
+	make -C doc html
 
 deb:
 	git buildpackage --git-upstream-tree=master
